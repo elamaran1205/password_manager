@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:password_manager/Authentication/app_lock.dart';
 import 'package:password_manager/Authentication/login_controller.dart';
 import 'package:password_manager/Encryption/encrypt_and_decrypt_functions.dart';
 import 'package:password_manager/Pages/password_add_controller.dart';
@@ -283,11 +284,15 @@ class _HomePageState extends State<HomePage> {
                                                     color:
                                                         MyColors.kPrimaryBlue,
                                                   ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      showPassword =
-                                                          !showPassword;
-                                                    });
+                                                  onPressed: () async {
+                                                    final unlock =
+                                                        await AppLock.authenticateUser();
+                                                    if (unlock) {
+                                                      setState(() {
+                                                        showPassword =
+                                                            !showPassword;
+                                                      });
+                                                    }
                                                   },
                                                 ),
                                                 IconButton(

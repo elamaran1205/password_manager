@@ -20,6 +20,8 @@ dependencies:
   fluttertoast: ^8.2.14
   animate_do: ^4.2.0
   rename: ^3.1.0
+  local_auth: ^2.3.0
+  permission_handler: ^11.3.0
   
 
 dev_dependencies:
