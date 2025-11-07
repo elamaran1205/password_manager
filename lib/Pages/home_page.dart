@@ -300,25 +300,35 @@ class _HomePageState extends State<HomePage> {
                                                     Icons.copy,
                                                     color: MyColors.kLightBlue,
                                                   ),
-                                                  onPressed: () {
-                                                    if (!decryptedPassword
-                                                        .startsWith('••')) {
-                                                      Clipboard.setData(
-                                                        ClipboardData(
-                                                          text:
-                                                              decryptedPassword,
-                                                        ),
-                                                      );
-                                                      MySnackBar.show(
-                                                        title: "Copied",
-                                                        message:
-                                                            "Password copied to clipboard",
-                                                      );
+                                                  onPressed: () async {
+                                                    final unlock =
+                                                        await AppLock.authenticateUser();
+                                                    if (unlock) {
+                                                      if (!decryptedPassword
+                                                          .startsWith('••')) {
+                                                        Clipboard.setData(
+                                                          ClipboardData(
+                                                            text:
+                                                                decryptedPassword,
+                                                          ),
+                                                        );
+                                                        MySnackBar.show(
+                                                          title: "Copied",
+                                                          message:
+                                                              "Password copied to clipboard",
+                                                        );
+                                                      } else {
+                                                        MySnackBar.show(
+                                                          title: "Error",
+                                                          message:
+                                                              "Cannot decrypt this password",
+                                                        );
+                                                      }
                                                     } else {
                                                       MySnackBar.show(
-                                                        title: "Error",
+                                                        title: "Failed",
                                                         message:
-                                                            "Cannot decrypt this password",
+                                                            "Authentication Failed try again",
                                                       );
                                                     }
                                                   },
